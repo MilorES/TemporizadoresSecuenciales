@@ -1,7 +1,23 @@
+
+// app.js
 let timers = JSON.parse(localStorage.getItem("timers")) || [];
 let endMessage = localStorage.getItem("endMessage") || "Todos los temporizadores han finalizado";
 let currentTimerIndex = 0;
 let isRunning = false;
+let wakeLock = null;
+
+async function requestWakeLock() {
+    if ('wakeLock' in navigator) {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock liberado');
+            });
+        } catch (err) {
+            console.error(`No se pudo activar Wake Lock: ${err.message}`);
+        }
+    }
+}
 
 function saveTimers() {
     localStorage.setItem("timers", JSON.stringify(timers));
@@ -35,6 +51,7 @@ function renderTimers() {
 function startTimers() {
     if (timers.length === 0 || isRunning) return;
     isRunning = true;
+    requestWakeLock();
     runTimer(0);
 }
 
@@ -43,6 +60,7 @@ function runTimer(index) {
         speak(endMessage);
         document.getElementById("activeTimer").textContent = "Temporizador activo: Ninguno";
         isRunning = false;
+        if (wakeLock) wakeLock.release();
         return;
     }
     currentTimerIndex = index;

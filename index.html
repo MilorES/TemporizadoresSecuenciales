@@ -6,6 +6,15 @@
     <title>Temporizadores Secuenciales</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js').then(() => {
+                console.log("Service Worker registrado");
+            }).catch(err => {
+                console.error("Error registrando el Service Worker", err);
+            });
+        }
+    </script>
 </head>
 <body>
     <h1>Temporizadores Secuenciales</h1>
