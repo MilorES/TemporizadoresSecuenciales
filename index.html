@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizadores Secuenciales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <h1>Temporizadores Secuenciales</h1>
+    <button onclick="addTimer()">Añadir Temporizador</button>
+    <button onclick="setEndMessage()">Configurar Mensaje Final</button>
+    <button onclick="startTimers()">Iniciar</button>
+    <button onclick="resetTimers()">Resetear</button>
+    <p id="activeTimer">Temporizador activo: Ninguno</p>
+    <ul id="timerList"></ul>
+    <script src="app.js"></script>
+</body>
+</html>
